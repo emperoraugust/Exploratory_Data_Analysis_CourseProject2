@@ -4,6 +4,10 @@ if(!dir.exists("Data")){
       message("Creation of the directory Data.")
       dir.create("Data")
 }
+
+if(!dir.exists("Figure")){
+      dir.create("Figure")
+}
 dirDataZip<-"Data/data.zip"
 dirFirstRds<-"Data/Source_Classification_Code.rds"
 dirSecRds<-"Data/summarySCC_PM25.rds"
