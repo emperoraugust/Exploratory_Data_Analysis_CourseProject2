@@ -1,13 +1,11 @@
-###############################################################################
+################################################################################
+    
+   # Across the United States, how have emissions from coal combustion-related 
+   # sources changed from 1999–2008?
 
-  # 1. Have total emissions from PM2.5 decreased in the United States from 1999 
-  # to 2008? Using the base plotting system, make a plot showing the total PM2.5 
-  # emission from all sources for each of the years 1999, 2002, 2005, and 2008.
-
-###############################################################################
+################################################################################
 
 library(dplyr)
-
 
 #Load the data
 if(!dir.exists("Data")){
@@ -35,13 +33,5 @@ SCC <- readRDS("Data/Source_Classification_Code.rds")
 
 #-------------------------------------------------------------------------------
 
-totalPM <- tapply(NEI$Emissions, NEI$year, sum)
-barplot(totalPM, xlab = "Year", ylab = "PM2.5 Emissions", main = "Total PM 2.5 Emissions (tons)")
+data<-filter(SCC,grepl("Coal",EI.Sector))
 
-
-
-dev.copy(png, file = "Figure/plot1.png")
-dev.off()
-
-
-#The total emissions has decreased.

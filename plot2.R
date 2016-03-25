@@ -1,10 +1,12 @@
-###############################################################################
+################################################################################
 
-  # 1. Have total emissions from PM2.5 decreased in the United States from 1999 
-  # to 2008? Using the base plotting system, make a plot showing the total PM2.5 
-  # emission from all sources for each of the years 1999, 2002, 2005, and 2008.
+   #Have total emissions from PM2.5 decreased in the Baltimore City, Maryland  
+   #(fips == "24510") from 1999 to 2008? Use the base plotting system to make a 
+   #plot answering this question.
 
-###############################################################################
+################################################################################
+
+
 
 library(dplyr)
 
@@ -33,15 +35,18 @@ if(!file.exists(dirDataZip) && (!file.exists(dirFirstRds) || !file.exists(dirSec
 NEI <- readRDS("Data/summarySCC_PM25.rds")
 SCC <- readRDS("Data/Source_Classification_Code.rds")
 
+
 #-------------------------------------------------------------------------------
 
-totalPM <- tapply(NEI$Emissions, NEI$year, sum)
-barplot(totalPM, xlab = "Year", ylab = "PM2.5 Emissions", main = "Total PM 2.5 Emissions (tons)")
+data<-filter(NEI,fips=="24510")
 
+totalPM <- tapply(data$Emissions, data$year, sum)
+barplot(totalPM, xlab = "Year", ylab = "PM2.5 Emissions",
+        main = "Total PM 2.5 Emissions (tons) in Baltimora City")
 
-
-dev.copy(png, file = "Figure/plot1.png")
+dev.copy(png, file = "Figure/plot2.png")
 dev.off()
 
+#The total emissions has essentially decreased (even if in 2005 the level 
+# has temporarily increased)
 
-#The total emissions has decreased.
