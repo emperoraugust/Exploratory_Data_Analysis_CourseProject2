@@ -1,7 +1,7 @@
 ################################################################################
-    
-   # Across the United States, how have emissions from coal combustion-related 
-   # sources changed from 1999–2008?
+   
+    # 5. How have emissions from motor vehicle sources changed from 1999–2008 in
+    # Baltimore City?
 
 ################################################################################
 
@@ -35,20 +35,18 @@ SCC <- readRDS("Data/Source_Classification_Code.rds")
 
 #-------------------------------------------------------------------------------
 
-coal.selection<-grepl("coal",SCC$Short.Name,ignore.case = TRUE) & (
-                grepl("comb",SCC$Short.Name,ignore.case=TRUE) |
-                grepl("fuel",SCC$Short.Name,ignore.case=TRUE)
-                )   
-               
-scc.coal<-filter(SCC,coal.selection)   
-data<-filter(NEI,SCC %in% scc.coal$SCC)
-sum.EmissionByYear<-ddply(data,.(year),function(x) sum(x$Emissions))
-sum.EmissionByYear$year<-factor(c(1999,2002,2005,2008))
+data<-filter(NEI,fips=="24510")
+veh.selection<-grepl("vehicles",SCC$EI.Sector,ignore.case = TRUE)
+scc.veh<-filter(SCC,veh.selection)
+data<-filter(data,SCC %in% scc.veh$SCC)
 
-png("Figure/plot4.png")
+sum.EmissionByYear<-ddply(data,.(year), function(x) sum(x$Emissions))
+sum.EmissionByYear$year<-factor(c("1999","2002","2005","2008"))
+
+png("Figure/plot5.png")
 ggplot(sum.EmissionByYear,aes(year,V1))+
       geom_bar(stat="identity",fill="steelblue")+
-      ylab("Coal combustion emissions")+
-      ggtitle("Total coal combustion emissions by year")+
+      ylab("Vehicles emissions")+
+      ggtitle("Total vehicles emissions by year in Baltimora City")+
       theme_minimal()
 dev.off()

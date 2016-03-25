@@ -12,10 +12,7 @@ library(dplyr)
 library(ggplot2)
 library(plyr)
 
-
-# I have not make use of facet because I want to delete the outliers because it 
-# makes the boxplot unreadble. I have decided to plot four bloxplots using 
-# precomputed values and merging all in a unique image. 
+ 
 
 #Load the data
 if(!dir.exists("Data")){
